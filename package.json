@@ -6,8 +6,13 @@
     "start": "cross-env NODE_ENV=production node dist/index.js"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.0.15",
+    "@chakra-ui/react": "^1.6.9",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@koa/router": "^10.1.1",
     "cross-env": "^7.0.2",
+    "framer-motion": "^4",
     "graphql": "^15.6.1",
     "koa": "^2.13.3",
     "koa-graphql": "^0.9.0",

@@ -1,18 +1,18 @@
-import Link from 'next/link'
+import { Flex } from '@chakra-ui/layout';
+import Header from 'components/Header';
+import type { NextPage } from 'next';
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
-    <ul>
-      <li>
-        <Link href="/a" as="/a">
-          <a>a</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/b" as="/b">
-          <a>b</a>
-        </Link>
-      </li>
-    </ul>
+    <Flex
+    direction='column'
+    alignItems='center'
+    justifyContent='flex-start'
+    height='100vh'
+  >
+      <Header />
+    </Flex>
   )
 }
+
+export default Home;

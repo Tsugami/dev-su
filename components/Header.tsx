@@ -7,7 +7,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 
 const Header = (): JSX.Element => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <Flex
@@ -23,7 +23,7 @@ const Header = (): JSX.Element => {
       <Heading as='h1' size='lg'>
         Dev-Su
       </Heading>
-      {session ? (
+      {status === 'loading' ? null : session ? (
         <Menu>
           <MenuButton>
             <Avatar name={session.user?.name as string} src={session.user?.image as string} />

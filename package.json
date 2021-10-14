@@ -6,12 +6,21 @@
     "start": "cross-env NODE_ENV=production node dist/index.js"
   },
   "dependencies": {
+    "@koa/router": "^10.1.1",
     "cross-env": "^7.0.2",
+    "graphql": "^15.6.1",
+    "koa": "^2.13.3",
+    "koa-graphql": "^0.9.0",
+    "koa-router": "^10.1.1",
     "next": "^11.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-graphql": "^0.8.5",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa__router": "^8.0.8",
     "@types/node": "^16.10.9",
     "@types/react": "^17.0.29",
     "@types/react-dom": "^17.0.9",

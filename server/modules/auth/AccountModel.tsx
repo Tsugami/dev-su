@@ -1,8 +1,8 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 import UserModel from '../user/UserModel';
 
 const AccountSchema = new Schema({
-  userId: { type: String, ref: UserModel, required: true },
+  userId: { type: Types.ObjectId, ref: UserModel, required: true },
   type: { type: String, required: true },
   provider: { type: String, required: true },
   providerAccountId: { type: String, required: true },

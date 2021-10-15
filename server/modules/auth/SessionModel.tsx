@@ -1,10 +1,10 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 import UserModel from '../user/UserModel';
 
 const SessionSchema = new Schema({
   expires: { type: Number, required: true },
   sessionToken: { type: String, required: true, unique: true },
-  userId: { type: String, required: true, ref: UserModel },
+  userId: { type: Types.ObjectId, required: true, ref: UserModel },
 });
 
 export interface ISession extends Document {

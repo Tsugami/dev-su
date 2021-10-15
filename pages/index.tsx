@@ -5,7 +5,7 @@ import PostCard from 'components/PostCard';
 
 const Home: NextPage = () => {
   return (
-    <Flex direction='column' alignItems='center' justifyContent='flex-start' height='100vh'>
+    <Flex direction='column' alignItems='center' justifyContent='flex-start'>
       <Header />
       <VStack p='6' spacing='6'>
         <PostCard />

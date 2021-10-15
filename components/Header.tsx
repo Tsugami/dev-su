@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, Heading, MenuDivider, useDisclosure } from '@chakra-ui/react';
+import { Avatar, Button, Flex, Heading, MenuDivider, Box, useDisclosure } from '@chakra-ui/react';
 
 import { useSession, signIn, signOut } from 'next-auth/react';
 import NewPostModal from './NewPostModal';
@@ -13,7 +13,7 @@ const Header = (): JSX.Element => {
   return (
     <>
       <Flex
-        as='nav'
+        as='header'
         align='center'
         justify='space-around'
         wrap='wrap'
@@ -21,31 +21,34 @@ const Header = (): JSX.Element => {
         bg='teal.500'
         w='full'
         color='white'
+        h='96px'
       >
         <Heading as='h1' size='lg'>
           Dev-Su
         </Heading>
-        {status === 'loading' ? null : session ? (
-          <Menu>
-            <MenuButton>
-              <Avatar name={session.user?.name as string} src={session.user?.image as string} />
-            </MenuButton>
-            <MenuList bg='teal.500'>
-              <MenuItem _hover={{ bg: 'teal.300' }}>My Profile</MenuItem>
-              <MenuItem onClick={() => onOpen()} _hover={{ bg: 'teal.300' }}>
-                New Post
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem _hover={{ bg: 'teal.300' }} onClick={() => signOut()}>
-                Logout
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        ) : (
-          <Button onClick={() => signIn('github')} colorScheme='blue'>
-            Login
-          </Button>
-        )}
+        <Box>
+          {status === 'loading' ? null : session ? (
+            <Menu>
+              <MenuButton>
+                <Avatar name={session.user?.name as string} src={session.user?.image as string} />
+              </MenuButton>
+              <MenuList bg='teal.500'>
+                <MenuItem _hover={{ bg: 'teal.300' }}>My Profile</MenuItem>
+                <MenuItem onClick={() => onOpen()} _hover={{ bg: 'teal.300' }}>
+                  New Post
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem _hover={{ bg: 'teal.300' }} onClick={() => signOut()}>
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Button onClick={() => signIn('github')} colorScheme='blue'>
+              Login
+            </Button>
+          )}
+        </Box>
       </Flex>
       <NewPostModal isOpen={isOpen} onClose={onClose} />
     </>

@@ -17,7 +17,7 @@ const Header = (): JSX.Element => {
       wrap='wrap'
       p={6}
       bg='teal.500'
-      w='100%'
+      w='full'
       color='white'
     >
       <Heading as='h1' size='lg'>

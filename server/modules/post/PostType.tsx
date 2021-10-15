@@ -1,5 +1,6 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import UserType from '../user/UserType';
 import { IPost } from './PostModel';
 
 const PostType = new GraphQLObjectType<IPost>({
@@ -21,6 +22,14 @@ const PostType = new GraphQLObjectType<IPost>({
     userId: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: (post) => post.userId,
+    },
+    user: {
+      type: new GraphQLNonNull(UserType),
+      resolve: () => ({
+        _id: '3249082038235',
+        name: 'Dan Abrahmov',
+        image: 'https://bit.ly/dan-abramov',
+      }),
     },
   }),
 });

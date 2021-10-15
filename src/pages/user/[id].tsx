@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 
 import { Flex, VStack, HStack, Avatar, Heading } from '@chakra-ui/react';
-import Header from 'components/Header';
-import PostCard from 'components/PostCard';
+import Header from '../../components/Header';
+import PostCard from '../../components/PostCard';
 
 const Home: NextPage = () => {
   return (

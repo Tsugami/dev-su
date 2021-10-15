@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import clientPromise from 'lib/mongodb';
+import clientPromise from '../../../lib/mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {

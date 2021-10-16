@@ -4,7 +4,8 @@
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/index.js",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "genschema": "get-graphql-schema http://localhost:3000/api/graphql > data/schema.graphql"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
@@ -50,6 +51,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "get-graphql-schema": "^2.1.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.4.1",
     "relay-config": "^12.0.0",

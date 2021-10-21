@@ -3,9 +3,6 @@ import Header from '../components/Header';
 import type { NextPage } from 'next';
 import { PostCardSkeleton } from '../components/PostCard';
 import { Suspense, lazy } from 'react';
-import dynamic from 'next/dynamic';
-
-const PostCard = lazy(() => import('../components/PostCard'), {});
 
 const Home: NextPage = () => {
   return (

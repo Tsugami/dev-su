@@ -9,7 +9,7 @@
     "postinstall": "husky install",
     "run:eslint": "eslint --fix packages",
     "server": "yarn workspace @dev-su/server",
-    "web": "yarn workspace @dev-su/server",
+    "web": "yarn workspace @dev-su/web",
     "web:build": "yarn web build",
     "web:dev": "yarn web start",
     "all:build": "yarn workspaces foreach -ptv run build",

@@ -1,5 +1,5 @@
 {
-  "name": "monorepo",
+  "name": "dev-su",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -7,10 +7,11 @@
   "scripts": {
     "prepare": "husky install",
     "postinstall": "husky install",
-    "eslint-config-web": "yarn workspace @monorepo/eslint-config-web",
-    "web-next": "yarn workspace @monorepo/web-next",
     "run:eslint": "eslint --fix packages",
-    "server": "yarn workspace @monorepo/server",
+    "server": "yarn workspace @dev-su/server",
+    "web": "yarn workspace @dev-su/server",
+    "web:build": "yarn web build",
+    "web:dev": "yarn web start",
     "all:build": "yarn workspaces foreach -ptv run build",
     "all:dev": "yarn workspaces foreach -ptv run dev",
     "delete:build": "find . -name \"build\" -exec rm -rf '{}' +",

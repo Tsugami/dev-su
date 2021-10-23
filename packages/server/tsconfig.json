@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Koa Libs needs
+    "importHelpers": true,
+      // Base directory to resolve non-relative module names.
+    "baseUrl": "src",
+  }
+}

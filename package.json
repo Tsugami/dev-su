@@ -1,67 +1,47 @@
 {
-  "name": "dev-su",
+  "name": "monorepo",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "dev": "nodemon",
-    "build": "next build && tsc --project tsconfig.server.json",
-    "start": "cross-env NODE_ENV=production node dist/index.js",
-    "lint": "eslint --fix .",
-    "genschema": "get-graphql-schema http://localhost:3000/api/graphql > data/schema.graphql",
-    "relay": "relay-compiler --src ./src --schema ./data/schema.graphql --language typescript"
-  },
-  "dependencies": {
-    "@chakra-ui/icons": "^1.0.15",
-    "@chakra-ui/react": "^1.6.9",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
-    "@entria/graphql-mongo-helpers": "^1.0.1",
-    "@koa/router": "^10.1.1",
-    "@next-auth/mongodb-adapter": "^0.0.2-next.281",
-    "cross-env": "^7.0.2",
-    "framer-motion": "^4",
-    "graphql": "^15.6.1",
-    "graphql-relay": "^0.9.0",
-    "koa": "^2.13.3",
-    "koa-graphql": "^0.9.0",
-    "koa-router": "^10.1.1",
-    "mongodb": "^4.1.1",
-    "mongoose": "^6.0.11",
-    "next": "^11.1.2",
-    "next-auth": "^4.0.0-beta.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-github-corner": "^2.5.0",
-    "react-relay": "^12.0.0",
-    "relay-compiler-language-typescript": "^14.2.1"
+    "prepare": "husky install",
+    "postinstall": "husky install",
+    "eslint-config-web": "yarn workspace @monorepo/eslint-config-web",
+    "web-next": "yarn workspace @monorepo/web-next",
+    "run:eslint": "eslint --fix packages",
+    "server": "yarn workspace @monorepo/server",
+    "all:build": "yarn workspaces foreach -ptv run build",
+    "all:dev": "yarn workspaces foreach -ptv run dev",
+    "delete:build": "find . -name \"build\" -exec rm -rf '{}' +",
+    "delete:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
+    "delete:yarn-offline-cache": "find . -name \"yarn-offline-cache\" -exec rm -rf '{}' +",
+    "delete:yarn.lock": "find . -name \"yarn.lock\" -exec rm -rf '{}' +",
+    "format": "prettier",
+    "lint": "eslint --fix"
   },
   "devDependencies": {
-    "@types/koa": "^2.13.4",
-    "@types/koa-graphql": "^0.8.5",
-    "@types/koa-router": "^7.4.4",
-    "@types/koa__router": "^8.0.8",
-    "@types/node": "^16.10.9",
-    "@types/react": "^17.0.29",
-    "@types/react-dom": "^17.0.9",
-    "@types/react-relay": "^11.0.2",
-    "@types/relay-runtime": "^12.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "babel-plugin-relay": "^12.0.0",
-    "eslint": "^8.0.1",
-    "eslint-config-next": "^11.1.2",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-next": "^0.0.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "get-graphql-schema": "^2.1.2",
-    "nodemon": "^2.0.4",
-    "prettier": "^2.4.1",
-    "relay-compiler": "^12.0.0",
-    "relay-config": "^12.0.0",
-    "ts-node": "^10.3.0",
-    "typescript": "4.4.4"
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "eslint": "^7.24.0",
+    "husky": "^6.0.0",
+    "jest": "^27.2.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.4"
+  },
+  "lint-staged": {
+    "*{.jsx,.js,.ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.yml": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "yarn": ">=1.19.0",
+    "node": ">=14",
+    "npm": "please-use-yarn"
   }
 }

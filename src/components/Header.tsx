@@ -1,9 +1,18 @@
-import { Avatar, Button, Flex, Heading, MenuDivider, Box, useDisclosure } from '@chakra-ui/react';
-
+import {
+  Avatar,
+  Button,
+  Flex,
+  Heading,
+  MenuDivider,
+  Box,
+  useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from '@chakra-ui/react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import NewPostModal from './NewPostModal';
-
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 
 const Header = (): JSX.Element => {
   const { isOpen, onClose, onOpen } = useDisclosure();

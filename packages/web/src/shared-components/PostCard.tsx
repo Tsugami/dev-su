@@ -16,37 +16,33 @@ import {
   SkeletonText,
 } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
-// import { graphql, useFragment } from 'react-relay';
+import { useFragment } from 'react-relay';
 import { Suspense } from 'react';
+import { PostCard_post$key } from './__generated__/PostCard_post.graphql';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import graphql from 'babel-plugin-relay/macro';
 
-// type Props = {
-//   post: PostCard_post$key;
-// };
+type Props = {
+  post: PostCard_post$key;
+};
 
-const PostCard = (): JSX.Element => {
-  //   const data = useFragment(
-  //     graphql`
-  //       fragment PostCard_post on Post {
-  //         title
-  //         content
-  //         user {
-  //           name
-  //           image
-  //         }
-  //       }
-  //     `,
-  //     post,
-  //   );
+const PostCard = ({ post }: Props): JSX.Element => {
+  const data = useFragment(
+    graphql`
+      fragment PostCard_post on Post {
+        title
+        content
+        user {
+          name
+          image
+        }
+      }
+    `,
+    post,
+  );
 
-  const data = {
-    title: 'Title',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error rem esse quasi cumque labore magni veritatis odio soluta dicta harum ipsa ad, sapiente, reprehenderit accusamus eaque modi cupiditate dolore vel',
-    user: {
-      name: 'Dan Abrahmov',
-      image: 'https://bit.ly/dan-abramov',
-    },
-  };
+  console.log(data);
 
   return (
     <Box maxW='md' borderWidth='1px' borderRadius='lg' p='6'>
@@ -67,12 +63,14 @@ const PostCard = (): JSX.Element => {
 
       <Text my='3'>{data.content}</Text>
       <HStack>
-        <Avatar
-          size='sm'
-          name={data.user.name}
-          src={data.user.image}
-          _hover={{ opacity: 0.7, cursor: 'pointer' }}
-        />
+        {data.user.image && (
+          <Avatar
+            size='sm'
+            name={data.user.name}
+            src={data.user.image}
+            _hover={{ opacity: 0.7, cursor: 'pointer' }}
+          />
+        )}
         <Heading fontSize='sm' _hover={{ textDecoration: 'underline', cursor: 'pointer' }}>
           {data.user.name}
         </Heading>
@@ -99,9 +97,9 @@ const PostCardSkeleton = () => (
   </Box>
 );
 
-const PostCardWithLazyLoad = () => (
+const PostCardWithLazyLoad = (props: Props) => (
   <Suspense fallback={<PostCardSkeleton />}>
-    <PostCard />
+    <PostCard {...props} />
   </Suspense>
 );
 

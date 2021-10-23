@@ -1,0 +1,10 @@
+{
+  "plugins": [
+      [
+          "relay",
+          {
+              "artifactDirectory": "./__generated__"
+          }
+      ]
+  ]
+}

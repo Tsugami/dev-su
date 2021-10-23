@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import graphqlHTTP from 'koa-graphql';
+import cors from '@koa/cors';
 
 import schema from './graphql/schema';
 
@@ -15,6 +16,7 @@ router.all(
   }),
 );
 
+app.use(cors());
 app.use(router.routes());
 app.use(router.allowedMethods());
 

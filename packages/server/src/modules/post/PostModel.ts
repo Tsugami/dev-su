@@ -4,7 +4,7 @@ import UserModel from '../user/UserModel';
 const PostSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
-  userId: { type: Types.ObjectId, ref: UserModel },
+  // userId: { type: Types.ObjectId, ref: UserModel },
 });
 
 export interface IPost extends Document {

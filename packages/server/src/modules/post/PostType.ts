@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import { connectionDefinitions } from '@entria/graphql-mongo-helpers'
+import { connectionDefinitions } from '@entria/graphql-mongo-helpers';
 
 import UserType from '../user/UserType';
 import { IPost } from './PostModel';

@@ -1,6 +1,6 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
-import { connectionArgs, connectionFromArray } from "graphql-relay";
-import { PostConnection } from "../modules/post/PostType";
+import { GraphQLObjectType, GraphQLString } from 'graphql';
+import { connectionArgs, connectionFromArray } from 'graphql-relay';
+import { PostConnection } from '../modules/post/PostType';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -31,4 +31,4 @@ export default new GraphQLObjectType({
       },
     },
   },
-})
+});

@@ -9,7 +9,7 @@ import RelayEnvironment from '../../relay/RelayEnvironment';
 
 const PagePostsQuery = graphql`
   query HomePagePostsQuery($first: Int!, $after: String) {
-    posts(first: $first, after: $after) {
+    posts(first: $first, after: $after) @connection(key: "PostList_posts") {
       pageInfo {
         hasNextPage
         endCursor

@@ -1,6 +1,5 @@
 import { Flex, VStack } from '@chakra-ui/layout';
 
-import Header from '../../shared-components/Header';
 import PostCard from '../../shared-components/PostCard';
 
 import { graphql } from 'babel-plugin-relay/macro';
@@ -26,7 +25,7 @@ const PagePostsQuery = graphql`
 `;
 
 const preloadedQuery = loadQuery<HomePagePostsQuery>(RelayEnvironment, PagePostsQuery, {
-  first: 1,
+  first: 10,
 });
 
 const HomePage = () => {
@@ -34,7 +33,6 @@ const HomePage = () => {
 
   return (
     <Flex direction='column' alignItems='center' justifyContent='flex-start'>
-      <Header />
       <VStack p='6' spacing='6'>
         {data?.posts?.edges?.map((post, i) => (
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment

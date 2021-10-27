@@ -1,10 +1,20 @@
-import { Button, Flex, Heading, Box, useDisclosure } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Avatar,
+  Center,
+  MenuDivider,
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import NewPostModal from './NewPostModal';
 
 const Header = (): JSX.Element => {
-  const { isOpen, onClose } = useDisclosure();
-
-  //   const { data: session, status } = useSession();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
@@ -20,30 +30,27 @@ const Header = (): JSX.Element => {
         h='96px'
       >
         <Flex justify='space-between' align='center' maxW='2xl' w='full'>
-          <Heading as='h1' size='lg'>
-            Dev-Su
-          </Heading>
-          <Box>
-            {/* {status === 'loading' ? null : session ? (
-              <Menu>
-                <MenuButton>
-                  <Avatar name={session.user?.name as string} src={session.user?.image as string} />
-                </MenuButton>
-                <MenuList bg='teal.500'>
-                  <MenuItem _hover={{ bg: 'teal.300' }}>My Profile</MenuItem>
-                  <MenuItem onClick={() => onOpen()} _hover={{ bg: 'teal.300' }}>
-                    New Post
-                  </MenuItem>
-                  <MenuDivider />
-                  <MenuItem _hover={{ bg: 'teal.300' }} onClick={() => signOut()}>
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            ) : ( */}
-            <Button colorScheme='blue'>Login</Button>
-            {/* )} */}
-          </Box>
+          <Link to='/'>
+            <Heading as='h1' size='lg' _hover={{ cursor: 'pointer' }}>
+              Dev-Su
+            </Heading>
+          </Link>
+          <Center>
+            <Menu>
+              <MenuButton>
+                <Avatar />
+              </MenuButton>
+              <MenuList bg='teal.500'>
+                <MenuItem _hover={{ bg: 'teal.300' }}>My Profile</MenuItem>
+                <MenuItem _hover={{ bg: 'teal.300' }} onClick={onOpen}>
+                  New Post
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem _hover={{ bg: 'teal.300' }}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+            {/* <Button colorScheme='blue'>Login</Button> */}
+          </Center>
         </Flex>
       </Flex>
       <NewPostModal isOpen={isOpen} onClose={onClose} />

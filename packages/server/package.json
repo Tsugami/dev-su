@@ -8,10 +8,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@entria/graphql-mongo-helpers": "^1.0.1",
     "@koa/cors": "^3.1.0",
     "@types/koa-graphql": "^0.8.5",
     "@types/koa-router": "^7.4.4",
     "@types/supertest": "^2.0.11",
+    "dataloader": "^2.0.0",
     "graphql": "^15.5.3",
     "graphql-relay": "^0.9.0",
     "koa": "^2.13.1",

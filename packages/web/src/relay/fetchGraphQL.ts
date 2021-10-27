@@ -1,4 +1,4 @@
-async function fetchGraphQL<V extends Record<string, unknown>>(text: string, variables: V) {
+async function fetchGraphQL<V extends Record<string, unknown>>(query: string, variables: V) {
   const response = await fetch(process.env.REACT_APP_API_URI as string, {
     method: 'POST',
     headers: {
@@ -6,13 +6,15 @@ async function fetchGraphQL<V extends Record<string, unknown>>(text: string, var
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      query: text,
+      query,
       variables,
     }),
   });
 
   // Get the response as JSON
-  return await response.json();
+  const data = await response.json();
+
+  return data;
 }
 
 export default fetchGraphQL;

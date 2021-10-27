@@ -15,10 +15,10 @@ export default new GraphQLObjectType({
       args: connectionArgs,
       type: PostConnection.connectionType,
       resolve(_source, args) {
-        return connectionFromArray(
-          Array.from({ length: 10 }, () => ({
-            id: 'wd',
-            _id: 'wd',
+        const data = connectionFromArray(
+          Array.from({ length: 10 }, (_, i) => ({
+            id: 'wd' + i,
+            _id: 'wd' + i,
             title: 'title',
             content:
               'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque aut debitis odit ab nisi, voluptates quod optio iusto illum alias illo dolor dolorum voluptatum animi nobis earum corrupti excepturi fugit?              ',
@@ -26,6 +26,8 @@ export default new GraphQLObjectType({
           })),
           args,
         );
+
+        return data;
       },
     },
   },

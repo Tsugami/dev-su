@@ -1,5 +1,3 @@
-// import type { PostCard_post$key } from './__generated__/PostCard_post.graphql';
-
 import {
   Box,
   Avatar,
@@ -19,9 +17,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import { useFragment } from 'react-relay';
 import { Suspense } from 'react';
 import { PostCard_post$key } from './__generated__/PostCard_post.graphql';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from 'babel-plugin-relay/macro';
 
 type Props = {
   post: PostCard_post$key;
@@ -42,8 +38,6 @@ const PostCard = ({ post }: Props): JSX.Element => {
     post,
   );
 
-  console.log(data);
-
   return (
     <Box maxW='md' borderWidth='1px' borderRadius='lg' p='6'>
       <HStack justifyContent='space-between'>
@@ -60,7 +54,6 @@ const PostCard = ({ post }: Props): JSX.Element => {
           </MenuList>
         </Menu>
       </HStack>
-
       <Text my='3'>{data.content}</Text>
       <HStack>
         {data.user.image && (

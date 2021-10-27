@@ -4,6 +4,29 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
+"""A connection to a list of items."""
+interface Connection {
+  """Number of items in this connection."""
+  count: Int
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+  This allows a client to fetch the first five objects by passing "5" as the
+  argument to "first", then fetch the total count so it could display "5 of 83",
+  for example.
+  """
+  totalCount: Int
+
+  """Offset from start."""
+  startCursorOffset: Int!
+
+  """Offset till end."""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
 """Information about pagination in a connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -30,20 +53,37 @@ type Post {
 }
 
 """A connection to a list of items."""
-type PostConnection {
+type PostConnection implements Connection {
+  """Number of items in this connection."""
+  count: Int
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+  This allows a client to fetch the first five objects by passing "5" as the
+  argument to "first", then fetch the total count so it could display "5 of 83",
+  for example.
+  """
+  totalCount: Int
+
+  """Offset from start."""
+  startCursorOffset: Int!
+
+  """Offset till end."""
+  endCursorOffset: Int!
+
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [PostEdge]
+  edges: [PostEdge]!
 }
 
 """An edge in a connection."""
 type PostEdge {
-  """The item at the end of the edge"""
+  """The item at the end of the edge."""
   node: Post
 
-  """A cursor for use in pagination"""
+  """A cursor for use in pagination."""
   cursor: String!
 }
 

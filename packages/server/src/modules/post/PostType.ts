@@ -1,5 +1,7 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import { globalIdField } from 'graphql-relay';
+import { connectionDefinitions } from '@entria/graphql-mongo-helpers'
+
 import UserType from '../user/UserType';
 import { IPost } from './PostModel';
 
@@ -27,6 +29,7 @@ const PostType = new GraphQLObjectType<IPost>({
       type: new GraphQLNonNull(UserType),
       resolve: () => ({
         _id: '3249082038235',
+        id: 'aa',
         name: 'Dan Abrahmov',
         image: 'https://bit.ly/dan-abramov',
       }),

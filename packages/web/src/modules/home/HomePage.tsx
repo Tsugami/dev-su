@@ -2,9 +2,8 @@ import { Flex, VStack } from '@chakra-ui/layout';
 
 import Header from '../../shared-components/Header';
 import PostCard from '../../shared-components/PostCard';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import graphql from 'babel-plugin-relay/macro';
+
+import { graphql } from 'babel-plugin-relay/macro';
 import { usePreloadedQuery, loadQuery } from 'react-relay';
 import { HomePagePostsQuery } from './__generated__/HomePagePostsQuery.graphql';
 import RelayEnvironment from '../../relay/RelayEnvironment';
@@ -27,7 +26,7 @@ const PagePostsQuery = graphql`
 `;
 
 const preloadedQuery = loadQuery<HomePagePostsQuery>(RelayEnvironment, PagePostsQuery, {
-  first: 10,
+  first: 1,
 });
 
 const HomePage = () => {

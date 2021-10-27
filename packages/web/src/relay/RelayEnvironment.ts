@@ -5,6 +5,7 @@ import fetchGraphQL from './fetchGraphQL';
 // to call our fetchGraphQL utility with params.text.
 const fetchRelay: FetchFunction = async (params, variables) => {
   console.log(`fetching query ${params.name} with ${JSON.stringify(variables)}`);
+  console.log(params.text); // a
   return fetchGraphQL(params.text as string, variables);
 };
 

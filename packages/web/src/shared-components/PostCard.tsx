@@ -39,7 +39,7 @@ const PostCard = ({ post }: Props): JSX.Element => {
   );
 
   return (
-    <Box maxW='md' borderWidth='1px' borderRadius='lg' p='6'>
+    <Box maxW='md' h='full' w='full' borderWidth='1px' borderRadius='lg' p='6'>
       <HStack justifyContent='space-between'>
         <Heading as='h4' size='md' isTruncated>
           {data.title}
@@ -56,7 +56,7 @@ const PostCard = ({ post }: Props): JSX.Element => {
       </HStack>
       <Text my='3'>{data.content}</Text>
       <HStack>
-        {data.user.image && (
+        {data?.user?.image && (
           <Avatar
             size='sm'
             name={data.user.name}
@@ -65,7 +65,7 @@ const PostCard = ({ post }: Props): JSX.Element => {
           />
         )}
         <Heading fontSize='sm' _hover={{ textDecoration: 'underline', cursor: 'pointer' }}>
-          {data.user.name}
+          {data.user?.name}
         </Heading>
       </HStack>
     </Box>

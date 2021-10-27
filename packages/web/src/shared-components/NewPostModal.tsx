@@ -20,26 +20,24 @@ import {
 import { graphql } from 'babel-plugin-relay/macro';
 import { useFormik } from 'formik';
 import { useMutation } from 'react-relay';
-import { ConnectionHandler, ROOT_ID } from 'relay-runtime';
 
 type Props = {
   isOpen: boolean;
   onClose(): unknown;
+  connections: string[];
 };
 
-const NewPostModal = ({ isOpen, onClose }: Props) => {
+const NewPostModal = ({ isOpen, onClose, connections }: Props) => {
   const toast = useToast();
 
   const [mutate, loading] = useMutation<NewPostModalCreatePostMutation>(
     graphql`
-      mutation NewPostModalCreatePostMutation($input: CreatePostInput!) {
+      mutation NewPostModalCreatePostMutation($input: CreatePostInput!, $connections: [ID!]!) {
         CreatePost(input: $input) {
           success
-          postEdge {
+          postEdge @appendEdge(connections: $connections) {
             cursor
             node {
-              id
-              _id
               title
               content
               user {
@@ -57,24 +55,9 @@ const NewPostModal = ({ isOpen, onClose }: Props) => {
     initialValues: { title: '', content: '' },
     onSubmit: (data) => {
       mutate({
-        variables: { input: data },
-        onCompleted: (data) => {
-          if (data.CreatePost?.success) {
-            onClose();
-          }
-        },
-        updater: (store) => {
-          const createPostField = store.getRootField('CreatePost');
-          const successField = createPostField.getLinkedRecord('success');
-          if (successField) {
-            const post = createPostField.getLinkedRecord('postEdge');
-
-            const root = store.get(ROOT_ID)!;
-            const posts = ConnectionHandler.getConnection(root, 'PostList_posts')!;
-            const edge = ConnectionHandler.createEdge(store, posts, post, 'PostEdge');
-
-            ConnectionHandler.insertEdgeAfter(posts, edge);
-          }
+        variables: { input: data, connections },
+        onCompleted: () => {
+          onClose();
         },
         onError: () => {
           toast({

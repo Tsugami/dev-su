@@ -25,7 +25,7 @@ export default mutationWithClientMutationId({
       resolve: ({ post }) => {
         return {
           cursor: toGlobalId('Post', post._id),
-          post,
+          node: post,
         };
       },
     },

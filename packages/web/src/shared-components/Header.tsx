@@ -13,7 +13,11 @@ import {
 import { Link } from 'react-router-dom';
 import NewPostModal from './NewPostModal';
 
-const Header = (): JSX.Element => {
+type Props = {
+  connections?: string[];
+};
+
+const Header = ({ connections = [] }: Props): JSX.Element => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -53,7 +57,7 @@ const Header = (): JSX.Element => {
           </Center>
         </Flex>
       </Flex>
-      <NewPostModal isOpen={isOpen} onClose={onClose} />
+      <NewPostModal isOpen={isOpen} onClose={onClose} connections={connections} />
     </>
   );
 };

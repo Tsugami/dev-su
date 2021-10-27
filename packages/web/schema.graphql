@@ -27,6 +27,24 @@ interface Connection {
   pageInfo: PageInfo!
 }
 
+input CreatePostInput {
+  title: String!
+  content: String!
+  clientMutationId: String
+}
+
+type CreatePostPayload {
+  postEdge: PostEdge
+
+  """Default success field resolver."""
+  success: Boolean
+  clientMutationId: String
+}
+
+type Mutation {
+  CreatePost(input: CreatePostInput!): CreatePostPayload
+}
+
 """Information about pagination in a connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""

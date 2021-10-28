@@ -35,7 +35,7 @@ const NewPostModal = ({ isOpen, onClose, connections }: Props) => {
       mutation NewPostModalCreatePostMutation($input: CreatePostInput!, $connections: [ID!]!) {
         CreatePost(input: $input) {
           success
-          postEdge @appendEdge(connections: $connections) {
+          postEdge @prependEdge(connections: $connections) {
             cursor
             node {
               title
@@ -58,6 +58,7 @@ const NewPostModal = ({ isOpen, onClose, connections }: Props) => {
         variables: { input: data, connections },
         onCompleted: () => {
           onClose();
+          formik.resetForm();
         },
         onError: () => {
           toast({

@@ -16,7 +16,7 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async ({ title, content }) => {
-    const post = await PostModel.create({ title, content });
+    const post = await PostModel.create({ title, content, userId });
     return { success: true, post };
   },
   outputFields: {

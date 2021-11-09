@@ -5,6 +5,7 @@ import cors from '@koa/cors';
 
 import schema from './graphql/schema';
 import buildContext from './graphql/buildContext';
+import SignInGithubPost from './modules/auth/routes/SignInGithubPost';
 
 const app = new Koa();
 const router = new Router();
@@ -17,6 +18,8 @@ router.all(
     context: buildContext(),
   })),
 );
+
+router.all('/auth/callback/github', SignInGithubPost);
 
 app.use(cors());
 app.use(router.routes());

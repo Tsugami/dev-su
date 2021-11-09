@@ -9,6 +9,7 @@ import {
   Avatar,
   Center,
   MenuDivider,
+  Button,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import NewPostModal from './NewPostModal';
@@ -16,6 +17,8 @@ import NewPostModal from './NewPostModal';
 type Props = {
   connections?: string[];
 };
+
+const GITHUB_AUTH_URI = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`;
 
 const Header = ({ connections = [] }: Props): JSX.Element => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -40,7 +43,7 @@ const Header = ({ connections = [] }: Props): JSX.Element => {
             </Heading>
           </Link>
           <Center>
-            <Menu>
+            {/* <Menu>
               <MenuButton>
                 <Avatar />
               </MenuButton>
@@ -52,8 +55,10 @@ const Header = ({ connections = [] }: Props): JSX.Element => {
                 <MenuDivider />
                 <MenuItem _hover={{ bg: 'teal.300' }}>Logout</MenuItem>
               </MenuList>
-            </Menu>
-            {/* <Button colorScheme='blue'>Login</Button> */}
+            </Menu> */}
+            <a href={GITHUB_AUTH_URI}>
+              <Button colorScheme='blue'>Login</Button>
+            </a>
           </Center>
         </Flex>
       </Flex>

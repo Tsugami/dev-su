@@ -8,7 +8,7 @@ const UserType = new GraphQLObjectType<IUser>({
     id: globalIdField('User'),
     image: {
       type: GraphQLString,
-      resolve: (user) => user.image,
+      resolve: (user) => user.avatar_url,
     },
     name: {
       type: new GraphQLNonNull(GraphQLString),

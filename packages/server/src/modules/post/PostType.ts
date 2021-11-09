@@ -9,10 +9,6 @@ const PostType = new GraphQLObjectType<IPost>({
   name: 'Post',
   fields: () => ({
     id: globalIdField('Post'),
-    _id: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve: (post) => post._id,
-    },
     title: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: (post) => post.title,

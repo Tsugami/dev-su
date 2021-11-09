@@ -6,10 +6,6 @@ const UserType = new GraphQLObjectType<IUser>({
   name: 'User',
   fields: () => ({
     id: globalIdField('User'),
-    _id: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve: (user) => user._id,
-    },
     image: {
       type: GraphQLString,
       resolve: (user) => user.image,

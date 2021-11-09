@@ -1,5 +1,6 @@
 import { GraphQLObjectType, GraphQLString } from 'graphql';
-import { connectionArgs, connectionFromArray } from 'graphql-relay';
+import { connectionArgs } from 'graphql-relay';
+import PostLoader from '../modules/post/PostLoader';
 import { PostConnection } from '../modules/post/PostType';
 
 export default new GraphQLObjectType({
@@ -14,20 +15,8 @@ export default new GraphQLObjectType({
     posts: {
       args: connectionArgs,
       type: PostConnection.connectionType,
-      resolve(_source, args) {
-        const data = connectionFromArray(
-          Array.from({ length: 10 }, (_, i) => ({
-            id: 'wd' + i,
-            _id: 'wd' + i,
-            title: 'title',
-            content:
-              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque aut debitis odit ab nisi, voluptates quod optio iusto illum alias illo dolor dolorum voluptatum animi nobis earum corrupti excepturi fugit?              ',
-            userId: 1,
-          })),
-          args,
-        );
-
-        return data;
+      resolve(_source, args, ctx) {
+        return PostLoader.loadAll(ctx, args);
       },
     },
   },

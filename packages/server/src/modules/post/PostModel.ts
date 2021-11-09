@@ -1,5 +1,4 @@
-import { Schema, model, Document, Types } from 'mongoose';
-import UserModel from '../user/UserModel';
+import { Schema, model, Document } from 'mongoose';
 
 const PostSchema = new Schema({
   title: { type: String, required: true },

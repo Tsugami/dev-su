@@ -4,16 +4,18 @@ import graphqlHTTP from 'koa-graphql';
 import cors from '@koa/cors';
 
 import schema from './graphql/schema';
+import buildContext from './graphql/buildContext';
 
 const app = new Koa();
 const router = new Router();
 
 router.all(
   '/graphql',
-  graphqlHTTP({
+  graphqlHTTP(() => ({
     schema,
     graphiql: true,
-  }),
+    context: buildContext(),
+  })),
 );
 
 app.use(cors());

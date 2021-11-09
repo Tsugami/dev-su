@@ -39,7 +39,7 @@ const PostCard = ({ post }: Props): JSX.Element => {
   );
 
   return (
-    <Box maxW='md' h='full' w='full' borderWidth='1px' borderRadius='lg' p='6'>
+    <Box minW={['sm', 'md']} h='full' w='full' borderWidth='1px' borderRadius='lg' p='6'>
       <HStack justifyContent='space-between'>
         <Heading as='h4' size='md' isTruncated>
           {data.title}

@@ -19,7 +19,7 @@ const PostType = new GraphQLObjectType<IPost>({
     },
     userId: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (post) => post.userId,
+      resolve: (post) => `post.userId`,
     },
     user: {
       type: new GraphQLNonNull(UserType),

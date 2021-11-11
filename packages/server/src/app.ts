@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import graphqlHTTP from 'koa-graphql';
+import session from 'koa-session';
 import cors from '@koa/cors';
 
 import schema from './graphql/schema';
@@ -21,7 +22,10 @@ router.all(
 
 router.all('/auth/callback/github', SignInGithubPost);
 
+app.keys = [process.env.SESSION_SECRET as string];
+
 app.use(cors());
+app.use(session(app));
 app.use(router.routes());
 app.use(router.allowedMethods());
 

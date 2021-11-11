@@ -2,6 +2,7 @@ import { Center, Container, Text } from '@chakra-ui/react';
 import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
+  callback?: ReactNode;
   children: ReactNode;
 }
 
@@ -27,11 +28,13 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <Container mt='20rem'>
-          <Center>
-            <Text>Sorry.. there was an error</Text>
-          </Center>
-        </Container>
+        this.props.callback || (
+          <Container mt='20rem'>
+            <Center>
+              <Text>Sorry.. there was an error</Text>
+            </Center>
+          </Container>
+        )
       );
     }
 

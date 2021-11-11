@@ -1,27 +1,25 @@
-import {
-  Flex,
-  Heading,
-  useDisclosure,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Avatar,
-  Center,
-  MenuDivider,
-  Button,
-} from '@chakra-ui/react';
+import { Flex, Heading, Center, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import useAuth from '../modules/auth/useAuth';
-import NewPostModal from './NewPostModal';
+import ErrorBoundary from './ErrorBoundary';
+import HeaderAuthMenu from './HeaderAuthMenu';
 
 type Props = {
   connections?: string[];
 };
 
+const LoginButton = () => {
+  const { login } = useAuth();
+
+  return (
+    <Button colorScheme='blue' onClick={login}>
+      Login
+    </Button>
+  );
+};
+
 const Header = ({ connections = [] }: Props): JSX.Element => {
-  const { isLoggedIn, logout, login } = useAuth();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isLoggedIn } = useAuth();
 
   return (
     <>
@@ -44,30 +42,15 @@ const Header = ({ connections = [] }: Props): JSX.Element => {
           </Link>
           <Center>
             {isLoggedIn ? (
-              <Menu>
-                <MenuButton>
-                  <Avatar />
-                </MenuButton>
-                <MenuList bg='teal.500'>
-                  <MenuItem _hover={{ bg: 'teal.300' }}>My Profile</MenuItem>
-                  <MenuItem _hover={{ bg: 'teal.300' }} onClick={onOpen}>
-                    New Post
-                  </MenuItem>
-                  <MenuDivider />
-                  <MenuItem _hover={{ bg: 'teal.300' }} onClick={logout}>
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+              <ErrorBoundary callback={<LoginButton />}>
+                <HeaderAuthMenu connections={connections} />
+              </ErrorBoundary>
             ) : (
-              <Button colorScheme='blue' onClick={login}>
-                Login
-              </Button>
+              <LoginButton />
             )}
           </Center>
         </Flex>
       </Flex>
-      <NewPostModal isOpen={isOpen} onClose={onClose} connections={connections} />
     </>
   );
 };

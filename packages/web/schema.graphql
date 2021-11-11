@@ -63,7 +63,6 @@ type PageInfo {
 type Post {
   """The ID of an object"""
   id: ID!
-  _id: String!
   title: String!
   content: String!
   userId: String!
@@ -107,6 +106,7 @@ type PostEdge {
 
 type Query {
   hello: String
+  me: User!
   posts(
     """Returns the items in the list that come after the specified cursor."""
     after: String
@@ -125,7 +125,6 @@ type Query {
 type User {
   """The ID of an object"""
   id: ID!
-  _id: String!
   image: String
   name: String!
 }

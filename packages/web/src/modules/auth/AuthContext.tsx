@@ -23,10 +23,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   const login = () => {
     const AUTHORIZE_URL = 'https://github.com/login/oauth/authorize';
-    const REDIRECT_URI = window.location.href + 'ata';
+    // const REDIRECT_URI = window.location.href + 'ata';
     const CLIENT_ID = process.env.REACT_APP_GITHUB_CLIENT_ID;
 
-    window.location.href = `${AUTHORIZE_URL}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state=ata`;
+    window.location.href = `${AUTHORIZE_URL}?client_id=${CLIENT_ID}&state=ata`;
   };
 
   const logout = () => {

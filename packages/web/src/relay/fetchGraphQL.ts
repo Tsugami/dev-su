@@ -4,7 +4,7 @@ async function fetchGraphQL<V extends Record<string, unknown>>(query: string, va
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-      authentication: 'Bearer ' + localStorage.getItem('token'),
+      authorization: 'Bearer ' + localStorage.getItem('token'),
     },
     body: JSON.stringify({
       query,

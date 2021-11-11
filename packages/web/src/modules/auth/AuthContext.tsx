@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
+import { getToken } from './AuthToken';
 
 type AuthContextProps = {
   isLoggedIn: boolean;
@@ -12,21 +13,16 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token =
-      new URLSearchParams(window.location.search).get('token') ?? localStorage.getItem('token');
+    const token = getToken();
 
     if (token) {
-      localStorage.setItem('token', token);
       setIsLoggedIn(true);
     }
   }, []);
 
   const login = () => {
-    const AUTHORIZE_URL = 'https://github.com/login/oauth/authorize';
-    // const REDIRECT_URI = window.location.href + 'ata';
-    const CLIENT_ID = process.env.REACT_APP_GITHUB_CLIENT_ID;
-
-    window.location.href = `${AUTHORIZE_URL}?client_id=${CLIENT_ID}&state=ata`;
+    const loginURI = 'http://localhost:3000/auth/signup?redirect_uri=' + window.location.href;
+    window.location.href = loginURI;
   };
 
   const logout = () => {

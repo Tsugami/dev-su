@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r dotenv-safe/config --watch .env* --no-notify --respawn --transpile-only src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "docker-dev": "docker-compose up -d"
   },
   "dependencies": {
     "@entria/graphql-mongo-helpers": "^1.0.1",

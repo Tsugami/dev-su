@@ -3,7 +3,13 @@ import { OAuth2Strategy, GetTokenResponse } from './OAuth';
 
 const GITHUB_ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token';
 const GITHUB_PROFILE_URI = 'https://api.github.com/user';
-// const GITHUB_AUTHORIZATION_URL: 'https://github.com/login/oauth/authorize',
+const GITHUB_AUTHORIZATION_URL = 'https://github.com/login/oauth/authorize';
+
+const GITHUB_AUTHORIZATION_PARAMS = {
+  scope: 'user',
+  client_id: process.env.GITHUB_CLIENT_ID,
+  client_secret: process.env.GITHUB_CLIENT_SECRET,
+};
 
 function encodeStrToObj<A>(str: string): A {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -42,6 +48,15 @@ const GithubOAuth: OAuth2Strategy = {
     const rest = await axios.post(uri);
 
     return encodeStrToObj<GetTokenResponse>(rest.data);
+  },
+  authorizeURL: (state) => {
+    return axios.getUri({
+      url: GITHUB_AUTHORIZATION_URL,
+      params: {
+        state,
+        ...GITHUB_AUTHORIZATION_PARAMS,
+      },
+    });
   },
 };
 

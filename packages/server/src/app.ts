@@ -6,7 +6,10 @@ import cors from '@koa/cors';
 
 import schema from './graphql/schema';
 import buildContext from './graphql/buildContext';
-import SignInGithubPost from './modules/auth/routes/SignInGithubPost';
+import SignInPost from './modules/auth/routes/SignInPost';
+import { RestContext } from 'typings';
+import AuthorizedPost from './modules/auth/routes/AuthorizedPost';
+import CallbackPost from './modules/auth/routes/CallbackPost';
 
 const app = new Koa();
 const router = new Router();
@@ -20,7 +23,9 @@ router.all(
   })),
 );
 
-router.all('/auth/callback/github', SignInGithubPost);
+router.all('/auth/signin/github', (ctx) => SignInPost(ctx as RestContext));
+router.all('/auth/callback/github', (ctx) => AuthorizedPost(ctx as RestContext));
+router.all('/auth/signup', (ctx) => CallbackPost(ctx as RestContext));
 
 app.keys = [process.env.SESSION_SECRET as string];
 

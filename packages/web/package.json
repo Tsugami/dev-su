@@ -34,7 +34,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "genschema": "get-graphql-schema http://localhost:3000/graphql > schema.graphql",
-    "relay": "relay-compiler --src ./src --schema ./schema.graphql --language typescript"
+    "relay": "relay-compiler --src ./src --schema ./schema.graphql --language typescript",
+    "generate": "yarn genschema && yarn relay"
   },
   "browserslist": {
     "production": [

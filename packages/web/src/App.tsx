@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
+import { AuthContextProvider } from './modules/auth/AuthContext';
 
 import RelayEnvironment from './relay/RelayEnvironment';
 import Routes from './routes';
@@ -11,7 +12,9 @@ export default function App() {
     <RelayEnvironmentProvider environment={RelayEnvironment}>
       <ErrorBoundary>
         <Suspense fallback={<LoadingPage />}>
-          <Routes />
+          <AuthContextProvider>
+            <Routes />
+          </AuthContextProvider>
         </Suspense>
       </ErrorBoundary>
     </RelayEnvironmentProvider>

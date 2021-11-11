@@ -12,15 +12,15 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import useAuth from '../modules/auth/useAuth';
 import NewPostModal from './NewPostModal';
 
 type Props = {
   connections?: string[];
 };
 
-const GITHUB_AUTH_URI = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`;
-
 const Header = ({ connections = [] }: Props): JSX.Element => {
+  const { isLoggedIn, logout, login } = useAuth();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -43,22 +43,27 @@ const Header = ({ connections = [] }: Props): JSX.Element => {
             </Heading>
           </Link>
           <Center>
-            {/* <Menu>
-              <MenuButton>
-                <Avatar />
-              </MenuButton>
-              <MenuList bg='teal.500'>
-                <MenuItem _hover={{ bg: 'teal.300' }}>My Profile</MenuItem>
-                <MenuItem _hover={{ bg: 'teal.300' }} onClick={onOpen}>
-                  New Post
-                </MenuItem>
-                <MenuDivider />
-                <MenuItem _hover={{ bg: 'teal.300' }}>Logout</MenuItem>
-              </MenuList>
-            </Menu> */}
-            <a href={GITHUB_AUTH_URI}>
-              <Button colorScheme='blue'>Login</Button>
-            </a>
+            {isLoggedIn ? (
+              <Menu>
+                <MenuButton>
+                  <Avatar />
+                </MenuButton>
+                <MenuList bg='teal.500'>
+                  <MenuItem _hover={{ bg: 'teal.300' }}>My Profile</MenuItem>
+                  <MenuItem _hover={{ bg: 'teal.300' }} onClick={onOpen}>
+                    New Post
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem _hover={{ bg: 'teal.300' }} onClick={logout}>
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Button colorScheme='blue' onClick={login}>
+                Login
+              </Button>
+            )}
           </Center>
         </Flex>
       </Flex>

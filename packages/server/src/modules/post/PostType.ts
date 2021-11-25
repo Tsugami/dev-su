@@ -4,8 +4,9 @@ import { connectionDefinitions } from '@entria/graphql-mongo-helpers';
 
 import UserType from '../user/UserType';
 import { IPost } from './PostModel';
+import { nodeInterface } from '../../graphql/node/nodeDefinition';
 
-const PostType = new GraphQLObjectType<IPost>({
+const PostType: GraphQLObjectType<IPost> = new GraphQLObjectType<IPost>({
   name: 'Post',
   fields: () => ({
     id: graphqlIdField('Post'),
@@ -31,6 +32,7 @@ const PostType = new GraphQLObjectType<IPost>({
       }),
     },
   }),
+  interfaces: [nodeInterface],
 });
 
 export const PostConnection = connectionDefinitions({

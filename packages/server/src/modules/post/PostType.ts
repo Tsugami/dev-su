@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { globalIdField } from 'graphql-relay';
+import { graphqlIdField } from '../../GlobalId';
 import { connectionDefinitions } from '@entria/graphql-mongo-helpers';
 
 import UserType from '../user/UserType';
@@ -8,7 +8,7 @@ import { IPost } from './PostModel';
 const PostType = new GraphQLObjectType<IPost>({
   name: 'Post',
   fields: () => ({
-    id: globalIdField('Post'),
+    id: graphqlIdField('Post'),
     title: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: (post) => post.title,
@@ -19,7 +19,7 @@ const PostType = new GraphQLObjectType<IPost>({
     },
     userId: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (post) => `post.userId`,
+      resolve: () => `post.userId`,
     },
     user: {
       type: new GraphQLNonNull(UserType),

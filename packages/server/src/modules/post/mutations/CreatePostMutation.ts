@@ -1,9 +1,10 @@
-import { mutationWithClientMutationId, toGlobalId } from 'graphql-relay';
+import { mutationWithClientMutationId } from 'graphql-relay';
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { successField } from '@entria/graphql-mongo-helpers';
 
 import PostModel from '../PostModel';
 import { PostConnection } from '../PostType';
+import { toGlobalId } from '../../../GlobalId';
 
 export default mutationWithClientMutationId({
   name: 'CreatePost',
@@ -16,7 +17,7 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async ({ title, content }) => {
-    const post = await PostModel.create({ title, content, userId });
+    const post = await PostModel.create({ title, content });
     return { success: true, post };
   },
   outputFields: {

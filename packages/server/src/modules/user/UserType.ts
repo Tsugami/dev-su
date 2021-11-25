@@ -1,11 +1,13 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import { connectionDefinitions } from '@entria/graphql-mongo-helpers';
+import { graphqlIdField } from '../../GlobalId';
 import { IUser } from './UserModel';
+import { nodeInterface } from '../../graphql/node/nodeDefinition';
 
-const UserType = new GraphQLObjectType<IUser>({
+const UserType: GraphQLObjectType<IUser> = new GraphQLObjectType<IUser>({
   name: 'User',
   fields: () => ({
-    id: globalIdField('User'),
+    id: graphqlIdField('User'),
     image: {
       type: GraphQLString,
       resolve: (user) => user.avatar_url,
@@ -15,6 +17,7 @@ const UserType = new GraphQLObjectType<IUser>({
       resolve: (user) => user.name,
     },
   }),
+  interfaces: [nodeInterface],
 });
 
 export const UserConnection = connectionDefinitions({

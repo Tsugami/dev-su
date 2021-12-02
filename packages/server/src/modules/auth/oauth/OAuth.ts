@@ -6,7 +6,7 @@ export interface User {
 
 export type GetTokenResponse = { access_token: string } | { error: string };
 export interface OAuth2Strategy {
-  getToken: (code: string) => Promise<GetTokenResponse>;
+  getToken: (code: string) => Promise<string>;
   getProfile: (access_token: string) => Promise<User>;
   authorizeURL: (state: string) => string;
 }

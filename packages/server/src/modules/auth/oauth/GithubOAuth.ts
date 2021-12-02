@@ -47,7 +47,13 @@ const GithubOAuth: OAuth2Strategy = {
 
     const rest = await axios.post(uri);
 
-    return encodeStrToObj<GetTokenResponse>(rest.data);
+    const data = encodeStrToObj<GetTokenResponse>(rest.data);
+
+    if ('access_token' in data) {
+      return data.access_token;
+    }
+
+    throw new Error(data.error);
   },
   authorizeURL: (state) => {
     return axios.getUri({

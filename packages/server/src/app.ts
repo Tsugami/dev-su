@@ -6,26 +6,32 @@ import cors from '@koa/cors';
 
 import schema from './graphql/schema';
 import buildContext from './graphql/buildContext';
-import SignInPost from './modules/auth/routes/SignInPost';
-import { RestContext } from 'typings';
-import AuthorizedPost from './modules/auth/routes/AuthorizedPost';
-import CallbackPost from './modules/auth/routes/CallbackPost';
+import { GraphQLError } from 'graphql';
 
 const app = new Koa();
 const router = new Router();
 
-router.all(
-  '/graphql',
-  graphqlHTTP(async (req) => ({
+router.all('/graphql', (ctx, next) => {
+  return graphqlHTTP(async (_req, _res, ctx) => ({
     schema,
     graphiql: true,
-    context: await buildContext(req),
-  })),
-);
+    context: await buildContext(ctx),
+    formatError: (error: GraphQLError) => {
+      // eslint-disable-next-line
+      console.log(error.message);
+      // eslint-disable-next-line
+      console.log(error.locations);
+      // eslint-disable-next-line
+      console.log(error.stack);
 
-router.all('/auth/signin/github', (ctx) => SignInPost(ctx as RestContext));
-router.all('/auth/callback/github', (ctx) => AuthorizedPost(ctx as RestContext));
-router.all('/auth/signup', (ctx) => CallbackPost(ctx as RestContext));
+      return {
+        message: error.message,
+        locations: error.locations,
+        stack: error.stack,
+      };
+    },
+  }))(ctx, next);
+});
 
 app.keys = [process.env.SESSION_SECRET as string];
 

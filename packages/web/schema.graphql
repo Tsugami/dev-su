@@ -43,6 +43,13 @@ type CreatePostPayload {
 
 type Mutation {
   CreatePost(input: CreatePostInput!): CreatePostPayload
+  SignUpWithGithub(input: SignUpWithGithubInput!): SignUpWithGithubPayload
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
 }
 
 """Information about pagination in a connection."""
@@ -60,7 +67,7 @@ type PageInfo {
   endCursor: String
 }
 
-type Post {
+type Post implements Node {
   """The ID of an object"""
   id: ID!
   title: String!
@@ -105,6 +112,17 @@ type PostEdge {
 }
 
 type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Fetches objects given their IDs"""
+  nodes(
+    """The IDs of objects"""
+    ids: [ID!]!
+  ): [Node]!
   hello: String
   me: User!
   posts(
@@ -122,7 +140,18 @@ type Query {
   ): PostConnection
 }
 
-type User {
+input SignUpWithGithubInput {
+  code: String!
+  clientMutationId: String
+}
+
+type SignUpWithGithubPayload {
+  accessToken: String!
+  Viewer: User!
+  clientMutationId: String
+}
+
+type User implements Node {
   """The ID of an object"""
   id: ID!
   image: String

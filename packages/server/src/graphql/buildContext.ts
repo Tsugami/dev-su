@@ -1,6 +1,6 @@
-import { Request } from 'koa';
+import type { RestContext } from '../typings';
 
-import { getUserIDByAccessToken } from '../modules/auth/AuthControll';
+import { getUserIDByAccessToken } from '../modules/auth/AuthControl';
 
 import PostLoader from '../modules/post/PostLoader';
 import UserLoader from '../modules/user/UserLoader';
@@ -12,16 +12,20 @@ function buildDataloaders() {
   };
 }
 
-export default async function buildContext(req: Request) {
+export default async function buildContext(ctx: RestContext) {
   const dataloaders = buildDataloaders();
 
-  const userID = req.headers.authorization
-    ? await getUserIDByAccessToken(req.headers.authorization as string).catch(() => null)
+  const accessToken = ctx.headers.authorization ?? ctx.session.token;
+  const userID = accessToken
+    ? await getUserIDByAccessToken(accessToken as string).catch(() => null)
     : null;
 
+  const user = userID ? await dataloaders.UserLoader.load(userID) : null;
+
   return {
-    dataloaders,
     userID,
+    dataloaders,
+    user,
   };
 }
 

@@ -8,8 +8,6 @@ export function generateToken(userId: string): string {
 
 export async function getUserIDByAccessToken(accessToken: string): Promise<string | null> {
   return new Promise((resolve, reject) => {
-    if (!accessToken || !accessToken.startsWith('Bearer ')) return resolve(null);
-
     const token = accessToken.replace('Bearer ', '');
 
     return jwt.verify(token, process.env.JWT_SECRET as string, (error, payload) => {
